@@ -358,11 +358,18 @@ getJavaMemory() {
 true_value() {
   local VALUE
   VALUE=$(echo "$1" | tr '[:upper:]' '[:lower:]')
+  # Look for TRUE values.
   if [ "$VALUE" = "1" ] || [ "$VALUE" = "true" ] || [ "$VALUE" = "yes" ] || [ "$VALUE" = "on" ]; then
     # Return a true value (success).
     return 0
   fi
+  # Look for FALSE values.
   if [ "$VALUE" = "0" ] || [ "$VALUE" = "false" ] || [ "$VALUE" = "no" ] || [ "$VALUE" = "off" ]; then
+    # Return a false value (failure).
+    return 1
+  fi
+  # Assume FALSE if value is not defined.
+  if [ "$VALUE" = "" ]; then
     # Return a false value (failure).
     return 1
   fi
