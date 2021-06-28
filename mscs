@@ -13,7 +13,7 @@
 # uses the same default user, config file and location.
 
 # Get executable name
-PROG=$(basename $0)
+PROG=$(basename "$0")
 
 # Setup the default user name.
 USER_NAME="minecraft"
@@ -24,12 +24,9 @@ LOCATION="/opt/mscs"
 # Setup the default location of the mscs.defaults file.
 MSCS_DEFAULTS="$LOCATION/mscs.defaults"
 
-# Setup the arguments to the msctl script.
-MSCS_ARGS="-p $PROG -l $LOCATION -c $MSCS_DEFAULTS $@"
-
 # Run the msctl script.
 if [ "$USER_NAME" = "$(whoami)" ]; then
-  msctl $MSCS_ARGS
+  msctl -p "$PROG" -l "$LOCATION" -c "$MSCS_DEFAULTS" "$@"
 else
-  sudo "PATH=$PATH" -u $USER_NAME -H msctl $MSCS_ARGS
+  sudo "PATH=$PATH" -u "$USER_NAME" -H msctl -p "$PROG" -l "$LOCATION" -c "$MSCS_DEFAULTS" "$@"
 fi

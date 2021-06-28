@@ -31,3 +31,7 @@ jobs:
       # This is a community-created action
       - name: Run ShellCheck
         uses: ludeeus/action-shellcheck@master
+        with:
+          additional_files: 'msctl'
+        env:
+          SHELLCHECK_OPTS: -x
