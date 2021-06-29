@@ -1308,14 +1308,14 @@ syncMirrorImage() {
 # @param 1 The world server to connect to.
 # ---------------------------------------------------------------------------
 serverConsole() {
-  local LINE WORLD_DIR
+  local CHAR WORLD_DIR
   # Make sure that the world's directory exists.
   WORLD_DIR="$WORLDS_LOCATION/$1"
   # Follow the console output buffer file.
   tail -f --pid=$$ $WORLD_DIR/console.out &
   # Copy user input to the console input buffer file.
-  while read LINE; do
-    echo "$LINE" >>$WORLD_DIR/console.in
+  while read -r -n1 CHAR; do
+    printf "$CHAR" >> $WORLD_DIR/console.in
   done
 }
 
